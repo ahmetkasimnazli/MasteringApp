@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F0DE77D2B587E2B0059BF5A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 5F0DE77C2B587E2B0059BF5A /* Alamofire */; };
 		5F1B3BBF2B581F4100ED4DF9 /* MasteringApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3BBE2B581F4100ED4DF9 /* MasteringApp.swift */; };
 		5F1B3BC12B581F4100ED4DF9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3BC02B581F4100ED4DF9 /* ContentView.swift */; };
 		5F1B3BC32B581F4200ED4DF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F1B3BC22B581F4200ED4DF9 /* Assets.xcassets */; };
 		5F1B3BC62B581F4200ED4DF9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F1B3BC52B581F4200ED4DF9 /* Preview Assets.xcassets */; };
+		5F1B3BCD2B58202700ED4DF9 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3BCC2B58202700ED4DF9 /* ErrorView.swift */; };
+		5F1B3BCF2B582A6300ED4DF9 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3BCE2B582A6300ED4DF9 /* ViewModel.swift */; };
+		5F1B3BD62B5832B200ED4DF9 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3BD52B5832B200ED4DF9 /* Service.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +23,10 @@
 		5F1B3BC02B581F4100ED4DF9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5F1B3BC22B581F4200ED4DF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F1B3BC52B581F4200ED4DF9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5F1B3BCC2B58202700ED4DF9 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		5F1B3BCE2B582A6300ED4DF9 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		5F1B3BD52B5832B200ED4DF9 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		5F1B3BDA2B58640A00ED4DF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F0DE77D2B587E2B0059BF5A /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,8 +60,12 @@
 		5F1B3BBD2B581F4100ED4DF9 /* Mastering */ = {
 			isa = PBXGroup;
 			children = (
+				5F1B3BDA2B58640A00ED4DF9 /* Info.plist */,
 				5F1B3BBE2B581F4100ED4DF9 /* MasteringApp.swift */,
 				5F1B3BC02B581F4100ED4DF9 /* ContentView.swift */,
+				5F1B3BCC2B58202700ED4DF9 /* ErrorView.swift */,
+				5F1B3BD52B5832B200ED4DF9 /* Service.swift */,
+				5F1B3BCE2B582A6300ED4DF9 /* ViewModel.swift */,
 				5F1B3BC22B581F4200ED4DF9 /* Assets.xcassets */,
 				5F1B3BC42B581F4200ED4DF9 /* Preview Content */,
 			);
@@ -83,6 +96,9 @@
 			dependencies = (
 			);
 			name = Mastering;
+			packageProductDependencies = (
+				5F0DE77C2B587E2B0059BF5A /* Alamofire */,
+			);
 			productName = Mastering;
 			productReference = 5F1B3BBB2B581F4100ED4DF9 /* Mastering.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +127,9 @@
 				Base,
 			);
 			mainGroup = 5F1B3BB22B581F4100ED4DF9;
+			packageReferences = (
+				5F0DE77B2B587E2A0059BF5A /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 5F1B3BBC2B581F4100ED4DF9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,7 +157,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F1B3BC12B581F4100ED4DF9 /* ContentView.swift in Sources */,
+				5F1B3BCF2B582A6300ED4DF9 /* ViewModel.swift in Sources */,
+				5F1B3BCD2B58202700ED4DF9 /* ErrorView.swift in Sources */,
 				5F1B3BBF2B581F4100ED4DF9 /* MasteringApp.swift in Sources */,
+				5F1B3BD62B5832B200ED4DF9 /* Service.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +297,8 @@
 				DEVELOPMENT_TEAM = 872Q79KG8T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mastering/Info.plist;
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "We need to have permission to save data.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +328,8 @@
 				DEVELOPMENT_TEAM = 872Q79KG8T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Mastering/Info.plist;
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "We need to have permission to save data.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -344,6 +370,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5F0DE77B2B587E2A0059BF5A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5F0DE77C2B587E2B0059BF5A /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5F0DE77B2B587E2A0059BF5A /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5F1B3BB32B581F4100ED4DF9 /* Project object */;
 }
