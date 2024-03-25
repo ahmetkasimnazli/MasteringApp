@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5F0DE77D2B587E2B0059BF5A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 5F0DE77C2B587E2B0059BF5A /* Alamofire */; };
+		5F0D9DA82BA9A2B9004FC263 /* OptionBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0D9DA72BA9A2B9004FC263 /* OptionBox.swift */; };
+		5F0D9DAC2BA9A9AF004FC263 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0D9DAB2BA9A9AF004FC263 /* HomePageView.swift */; };
+		5F0D9DC92BAB5553004FC263 /* AudioPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0D9DC82BAB5553004FC263 /* AudioPlayerView.swift */; };
+		5F0D9DCB2BAB5EB8004FC263 /* AudioPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0D9DCA2BAB5EB8004FC263 /* AudioPlayerViewModel.swift */; };
+		5F0D9DCD2BAC4A6B004FC263 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0D9DCC2BAC4A6B004FC263 /* SettingsView.swift */; };
 		5F1B3BBF2B581F4100ED4DF9 /* MasteringApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3BBE2B581F4100ED4DF9 /* MasteringApp.swift */; };
 		5F1B3BC12B581F4100ED4DF9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3BC02B581F4100ED4DF9 /* ContentView.swift */; };
 		5F1B3BC32B581F4200ED4DF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F1B3BC22B581F4200ED4DF9 /* Assets.xcassets */; };
@@ -15,9 +19,16 @@
 		5F1B3BCD2B58202700ED4DF9 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3BCC2B58202700ED4DF9 /* ErrorView.swift */; };
 		5F1B3BCF2B582A6300ED4DF9 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3BCE2B582A6300ED4DF9 /* ViewModel.swift */; };
 		5F1B3BD62B5832B200ED4DF9 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3BD52B5832B200ED4DF9 /* Service.swift */; };
+		5F28D0EE2BB19BE6001F50E8 /* PreviewAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F28D0ED2BB19BE6001F50E8 /* PreviewAudio.swift */; };
+		5F56FC082BAF0D0800867EFA /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F56FC072BAF0D0800867EFA /* PreviewView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F0D9DA72BA9A2B9004FC263 /* OptionBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionBox.swift; sourceTree = "<group>"; };
+		5F0D9DAB2BA9A9AF004FC263 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
+		5F0D9DC82BAB5553004FC263 /* AudioPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerView.swift; sourceTree = "<group>"; };
+		5F0D9DCA2BAB5EB8004FC263 /* AudioPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerViewModel.swift; sourceTree = "<group>"; };
+		5F0D9DCC2BAC4A6B004FC263 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5F1B3BBB2B581F4100ED4DF9 /* Mastering.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mastering.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F1B3BBE2B581F4100ED4DF9 /* MasteringApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasteringApp.swift; sourceTree = "<group>"; };
 		5F1B3BC02B581F4100ED4DF9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -27,6 +38,9 @@
 		5F1B3BCE2B582A6300ED4DF9 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		5F1B3BD52B5832B200ED4DF9 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		5F1B3BDA2B58640A00ED4DF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5F28D0ED2BB19BE6001F50E8 /* PreviewAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewAudio.swift; sourceTree = "<group>"; };
+		5F56FC072BAF0D0800867EFA /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		5F89DFE52BA1C6C400FD6EC6 /* Mastering.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mastering.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,13 +48,58 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F0DE77D2B587E2B0059BF5A /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F0D9DAD2BAAF567004FC263 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5F1B3BC02B581F4100ED4DF9 /* ContentView.swift */,
+				5F1B3BCC2B58202700ED4DF9 /* ErrorView.swift */,
+				5F0D9DA72BA9A2B9004FC263 /* OptionBox.swift */,
+				5F0D9DAB2BA9A9AF004FC263 /* HomePageView.swift */,
+				5F0D9DC82BAB5553004FC263 /* AudioPlayerView.swift */,
+				5F0D9DCC2BAC4A6B004FC263 /* SettingsView.swift */,
+				5F56FC072BAF0D0800867EFA /* PreviewView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5F0D9DAE2BAAF575004FC263 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5F28D0ED2BB19BE6001F50E8 /* PreviewAudio.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5F0D9DBD2BAB2A9B004FC263 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
+		5F0D9DC02BAB2B0E004FC263 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5F1B3BD52B5832B200ED4DF9 /* Service.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		5F0D9DC32BAB2B4A004FC263 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				5F1B3BCE2B582A6300ED4DF9 /* ViewModel.swift */,
+				5F0D9DCA2BAB5EB8004FC263 /* AudioPlayerViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		5F1B3BB22B581F4100ED4DF9 = {
 			isa = PBXGroup;
 			children = (
@@ -60,12 +119,14 @@
 		5F1B3BBD2B581F4100ED4DF9 /* Mastering */ = {
 			isa = PBXGroup;
 			children = (
+				5F0D9DC32BAB2B4A004FC263 /* ViewModels */,
+				5F0D9DC02BAB2B0E004FC263 /* Services */,
+				5F0D9DBD2BAB2A9B004FC263 /* Extentions */,
+				5F0D9DAE2BAAF575004FC263 /* Models */,
+				5F0D9DAD2BAAF567004FC263 /* Views */,
+				5F89DFE52BA1C6C400FD6EC6 /* Mastering.entitlements */,
 				5F1B3BDA2B58640A00ED4DF9 /* Info.plist */,
 				5F1B3BBE2B581F4100ED4DF9 /* MasteringApp.swift */,
-				5F1B3BC02B581F4100ED4DF9 /* ContentView.swift */,
-				5F1B3BCC2B58202700ED4DF9 /* ErrorView.swift */,
-				5F1B3BD52B5832B200ED4DF9 /* Service.swift */,
-				5F1B3BCE2B582A6300ED4DF9 /* ViewModel.swift */,
 				5F1B3BC22B581F4200ED4DF9 /* Assets.xcassets */,
 				5F1B3BC42B581F4200ED4DF9 /* Preview Content */,
 			);
@@ -97,7 +158,6 @@
 			);
 			name = Mastering;
 			packageProductDependencies = (
-				5F0DE77C2B587E2B0059BF5A /* Alamofire */,
 			);
 			productName = Mastering;
 			productReference = 5F1B3BBB2B581F4100ED4DF9 /* Mastering.app */;
@@ -128,7 +188,6 @@
 			);
 			mainGroup = 5F1B3BB22B581F4100ED4DF9;
 			packageReferences = (
-				5F0DE77B2B587E2A0059BF5A /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 5F1B3BBC2B581F4100ED4DF9 /* Products */;
 			projectDirPath = "";
@@ -157,9 +216,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				5F1B3BC12B581F4100ED4DF9 /* ContentView.swift in Sources */,
+				5F28D0EE2BB19BE6001F50E8 /* PreviewAudio.swift in Sources */,
 				5F1B3BCF2B582A6300ED4DF9 /* ViewModel.swift in Sources */,
+				5F0D9DC92BAB5553004FC263 /* AudioPlayerView.swift in Sources */,
+				5F56FC082BAF0D0800867EFA /* PreviewView.swift in Sources */,
+				5F0D9DA82BA9A2B9004FC263 /* OptionBox.swift in Sources */,
 				5F1B3BCD2B58202700ED4DF9 /* ErrorView.swift in Sources */,
+				5F0D9DCD2BAC4A6B004FC263 /* SettingsView.swift in Sources */,
 				5F1B3BBF2B581F4100ED4DF9 /* MasteringApp.swift in Sources */,
+				5F0D9DAC2BA9A9AF004FC263 /* HomePageView.swift in Sources */,
+				5F0D9DCB2BAB5EB8004FC263 /* AudioPlayerViewModel.swift in Sources */,
 				5F1B3BD62B5832B200ED4DF9 /* Service.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,7 +285,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -276,7 +342,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -291,10 +357,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				CODE_SIGN_ENTITLEMENTS = Mastering/Mastering.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mastering/Preview Content\"";
 				DEVELOPMENT_TEAM = 872Q79KG8T;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mastering/Info.plist;
@@ -304,6 +374,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -311,6 +382,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ahmetkasimnazli.Mastering;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -322,10 +394,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
+				CODE_SIGN_ENTITLEMENTS = Mastering/Mastering.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mastering/Preview Content\"";
 				DEVELOPMENT_TEAM = 872Q79KG8T;
+				ENABLE_APP_SANDBOX = NO;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mastering/Info.plist;
@@ -335,6 +411,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -342,6 +419,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ahmetkasimnazli.Mastering;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -370,25 +448,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		5F0DE77B2B587E2A0059BF5A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.8.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		5F0DE77C2B587E2B0059BF5A /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5F0DE77B2B587E2A0059BF5A /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5F1B3BB32B581F4100ED4DF9 /* Project object */;
 }
