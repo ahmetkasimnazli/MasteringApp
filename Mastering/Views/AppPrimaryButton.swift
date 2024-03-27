@@ -6,3 +6,16 @@
 //
 
 import Foundation
+import SwiftUI
+
+struct AppPrimaryButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        HStack {
+            configuration.label
+                .foregroundColor(Color.white)
+                .fontWeight(.bold)
+        }
+        .padding()
+        .background(Color.green.cornerRadius(8))
+    }
+}

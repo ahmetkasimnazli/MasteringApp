@@ -87,10 +87,10 @@ class DolbyIOService {
         }
     }
     
-    func createMasterPreview(apiToken: String) async throws -> String {
+    func createMasterPreview(apiToken: String, selectedPreset: String, selectedTime: Int) async throws -> String {
         let urlString = "https://api.dolby.com/media/master/preview"
         let sourceURL = "dlb://in/file.mp3"
-        let startSegment = 10
+        let startSegment = selectedTime
         let durationSegment = 30
         
         let parameters: [String: Any] = [
@@ -100,15 +100,7 @@ class DolbyIOService {
             "outputs": [
                 [
                     "destination": "dlb://out/example-master-preview-a.wav",
-                    "master": ["dynamic_eq": ["preset": "a"]]
-                ],
-                [
-                    "destination": "dlb://out/example-master-preview-b.wav",
-                    "master": ["dynamic_eq": ["preset": "b"]]
-                ],
-                [
-                    "destination": "dlb://out/example-master-preview-c.wav",
-                    "master": ["dynamic_eq": ["preset": "c"]]
+                    "master": ["dynamic_eq": ["preset":"\(selectedPreset)"]]
                 ]
             ]
         ]
@@ -206,11 +198,8 @@ class DolbyIOService {
                     
                     // Dosyayı geçici dizine kaydet
                     try data.write(to: fileURL)
-                    let trimmedPath = fileURL.path.replacingOccurrences(of: "file://", with: "")
-                        print("DEBUG: Downloaded file: \(trimmedPath)")
                     
-                    // Dosyanın URL'sini döndür
-                    return URL(string: trimmedPath) ?? fileURL
+                    return fileURL
                 } else {
                     throw NSError(domain: "HTTPError", code: httpResponse.statusCode, userInfo: nil)
                 }
@@ -222,41 +211,6 @@ class DolbyIOService {
         }
     }
     
-        func enhanceMedia(apiToken: String) async throws -> String {
-            let urlString = "https://api.dolby.com/media/enhance"
-            
-            let parameters: [String: Any] = [
-                "input": "dlb://in/file.mp3",
-                "output": "dlb://out/file-enhanced.mp3"
-            ]
-            
-            let headers = [
-                "Authorization": "Bearer \(apiToken)",
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            ]
-            
-            var request = createRequest(url: urlString, method: "POST", headers: headers)
-            
-            do {
-                request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
-                let (data, _) = try await URLSession.shared.data(for: request)
-                if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                       let jobId = jsonObject["job_id"] as? String {
-                        // jobId değeri başarılı bir şekilde alındı
-                        print("Başarılı: job_id = \(jobId)")
-                        return jobId
-                    } else {
-                    print("Error happened1")
-                    throw NSError(domain: "InvalidData", code: 0, userInfo: nil)
-                }
-            } catch {
-                print("Error happened1")
-                throw error
-            }
-        }
-
-
     func createMasteredMedia(apiToken: String) async throws -> String {
         let urlString = "https://api.dolby.com/media/master"
         let sourceURL = "dlb://in/file.mp3"
@@ -300,15 +254,47 @@ class DolbyIOService {
             throw error
         }
     }
-
-
     
-    func getEnhanceJobStatus(apiToken: String, jobID: String) async throws {
-        let urlString = "https://api.dolby.com/media/master?job_id=\(jobID)"
+    func enhanceMedia(apiToken: String) async throws -> String {
+        let urlString = "https://api.dolby.com/media/enhance"
+        
+        let parameters: [String: Any] = [
+            "input": "dlb://in/file.mp3",
+            "output": "dlb://out/file-enhanced.mp3"
+        ]
+        
+        let headers = [
+            "Authorization": "Bearer \(apiToken)",
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        ]
+        
+        var request = createRequest(url: urlString, method: "POST", headers: headers)
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+            let (data, _) = try await URLSession.shared.data(for: request)
+            if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                    let jobId = jsonObject["job_id"] as? String {
+                    // jobId değeri başarılı bir şekilde alındı
+                    print("Başarılı: job_id = \(jobId)")
+                    return jobId
+                } else {
+                print("Error happened1")
+                throw NSError(domain: "InvalidData", code: 0, userInfo: nil)
+            }
+        } catch {
+            print("Error happened1")
+            throw error
+        }
+    }
+
+    func getJobStatus(apiToken: String, jobID: String, selectedAction: String) async throws -> String {
+        let urlString = "https://api.dolby.com/media/\(selectedAction)?job_id=\(jobID)"
         
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
-            return
+            return "Invalid URL"
         }
         
         let headers = [
@@ -326,14 +312,20 @@ class DolbyIOService {
             if let jsonString = String(data: data, encoding: .utf8) {
                 print("Response Data: \(jsonString)")
             }
+            guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                  let status = jsonObject["status"] as? String else {
+                throw NSError(domain: "InvalidData", code: 0, userInfo: nil)
+                    }
+                    return status
         } catch {
             // Handle error
             print("Error: \(error)")
+            throw error
         }
     }
     
-    func downloadEnhancedMedia(apiToken: String) async throws -> URL {
-        let urlString = "https://api.dolby.com/media/output?url=dlb://out/example-mastered.mp3"
+    func downloadMedia(apiToken: String, selectedAction: String) async throws -> URL {
+        let urlString = "https://api.dolby.com/media/output?url=dlb://out/example-\(selectedAction).mp3"
         
         let headers = [
             "Authorization": "Bearer \(apiToken)"
