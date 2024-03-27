@@ -13,18 +13,39 @@ import UniformTypeIdentifiers
 class DolbyIOViewModel: ObservableObject {
     
     private let service = DolbyIOService.shared
-    @Published var isLoading = false
+
     @Published var token: String?
     @Published var uploadLink: String?
     @Published var uploadResponse: HTTPURLResponse?
+    @Published var previewjobID: String?
     @Published var jobID: String?
     @Published var error: Error?
     @Published var fileURL: String?
-    @Published var showAlert = false
-    @Published var alertTitle = ""
-    @Published var isUploadCompleted = false
     @Published var previewStatus: String?
-    @Published var previewURLs: [URL] = []
+    @Published var previewURL: URL?
+    @Published var jobStatus: String?
+    @Published var downloadURL: URL?
+    let masterPresets: [String:String] = [
+        "a": "Pop",
+        "b": "Club, EDM",
+        "c": "Hip Hop(Big Bass, Tight Dynamics)",
+        "d": "Hip Hop(Heavy Bass, Sub-Bass Presence)",
+        "e": "Hip Hop, Trap",
+        "f": "Lighter Electronic, EDM",
+        "g": "Darker Electronic, EDM",
+        "h": "Electronic, EDM",
+        "i": "Pop, Rock, Country",
+        "j": "Rock, Country",
+        "k": "Pop",
+        "l": "Vocal",
+        "m": "Folk, Acoustic",
+        "n": "Classical"
+    ]
+    @Published var selectedPreset: String = "a"
+    @Published var selectedTime = 0
+    
+    @Published var progressTitle = "Loading..."
+
 
 
 
@@ -58,6 +79,7 @@ class DolbyIOViewModel: ObservableObject {
     }
     
     func uploadMedia() {
+        progressTitle = "Uploading..."
         let localFilePath = fileURL
         guard let uploadLink = self.uploadLink else {
             self.error = NSError(domain: "UploadLinkNotAvailable", code: 0, userInfo: nil)
@@ -71,9 +93,6 @@ class DolbyIOViewModel: ObservableObject {
                 self.uploadResponse = httpResponse
                 print("DEBUG: filePath: \(localFilePath) uploadLink:  \(uploadLink)")
                 print("DEBUG: response: \(httpResponse.statusCode)")
-                
-                self.alertTitle = "Upload is completed"
-                self.showAlert = true
             } catch {
                 self.error = error
                 print("DEBUG Error in uploadMedia: \(error)") 
@@ -84,17 +103,18 @@ class DolbyIOViewModel: ObservableObject {
     }
     
     func createMasterPreview() {
+            progressTitle = "Creating..."
             guard let token = self.token else {
                 self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
                 return
             }
-            
+            print(selectedTime,selectedPreset)
             Task {
                 do {
-                    let result = try await service.createMasterPreview(apiToken: token)
-                    self.jobID = result
+                    let result = try await service.createMasterPreview(apiToken: token, selectedPreset: selectedPreset, selectedTime: selectedTime)
+                    self.previewjobID = result
                     print("JOB ID: \(result)")
-                    
+                    self.previewURL = nil
                     self.error = nil
                 } catch {
                     self.error = error
@@ -104,7 +124,8 @@ class DolbyIOViewModel: ObservableObject {
         }
         
         func getMasterPreviewJobStatus() {
-            guard let token = self.token, let jobID = self.jobID else {
+            progressTitle = "Processing..."
+            guard let token = self.token, let jobID = self.previewjobID else {
                 self.error = NSError(domain: "TokenOrJobIDNotAvailable", code: 0, userInfo: nil)
                 return
             }
@@ -123,6 +144,7 @@ class DolbyIOViewModel: ObservableObject {
         }
     
     func downloadMasterPreview() {
+        progressTitle = "Successful."
         guard let token = self.token else {
             self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
             return
@@ -130,11 +152,9 @@ class DolbyIOViewModel: ObservableObject {
 
             Task {
                 do {
-                    let result = try await service.downloadMasteredPreview(apiToken: token)
-                    
-                    print("DEBUG: Downloaded file: \(result)")
-                    previewURLs.append(result)
-                    print("DEBUG: Preview URL: \(previewURLs)")
+                    let fileURL = try await service.downloadMasteredPreview(apiToken: token)
+                    self.previewURL = fileURL
+                    print("DEBUG: Preview URL: \(String(describing: previewURL))")
                     self.error = nil
                 } catch {
                     self.error = error
@@ -142,6 +162,25 @@ class DolbyIOViewModel: ObservableObject {
                 }
             }
         
+    }
+    
+    func masterMedia() {
+        progressTitle = "Creating..."
+        guard let token = self.token else {
+            self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
+            return
+        }
+        Task {
+            do {
+                let result = try await service.createMasteredMedia(apiToken: token)
+                self.jobID = result
+                print("JOB ID: \(result)")
+                self.error = nil
+            } catch {
+                self.error = error
+                print("DEBUG Error: \(error.localizedDescription)")
+            }
+        }
     }
     
     func enhanceMedia() {
@@ -162,25 +201,10 @@ class DolbyIOViewModel: ObservableObject {
             }
         }
     
-    func masterMedia() {
-        guard let token = self.token else {
-            self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
-            return
-        }
-        Task {
-            do {
-                let result = try await service.createMasteredMedia(apiToken: token)
-                self.jobID = result
-                print("JOB ID: \(result)")
-                self.error = nil
-            } catch {
-                self.error = error
-                print("DEBUG Error: \(error.localizedDescription)")
-            }
-        }
-    }
     
-    func getEnhanceJobStatus() {
+    
+    func getJobStatus(selectedAction: String) {
+        progressTitle = "Processing..."
         guard let token = self.token else {
             self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
             return
@@ -192,8 +216,9 @@ class DolbyIOViewModel: ObservableObject {
 
         Task {
             do {
-                let result = try await service.getEnhanceJobStatus(apiToken: token, jobID: jobID)
+                let result = try await service.getJobStatus(apiToken: token, jobID: jobID, selectedAction: selectedAction)
                 print("Status: \(result)")
+                self.jobStatus = result
                 self.error = nil
             } catch {
                 self.error = error
@@ -202,7 +227,8 @@ class DolbyIOViewModel: ObservableObject {
         }
     }
     
-    func downloadEnhancedMedia() {
+    func downloadMedia(selectedAction: String) {
+        progressTitle = "Succesful!"
         guard let token = self.token else {
             self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
             return
@@ -210,8 +236,8 @@ class DolbyIOViewModel: ObservableObject {
 
         Task {
             do {
-                let fileURL = try await service.downloadEnhancedMedia(apiToken: token)
-                
+                let fileURL = try await service.downloadMedia(apiToken: token, selectedAction: selectedAction)
+                self.downloadURL = fileURL
                 self.fileURL = String(describing: fileURL)
                 
                 self.error = nil
@@ -226,6 +252,20 @@ class DolbyIOViewModel: ObservableObject {
 }
 
 
+extension DolbyIOViewModel {
+    func reset() {
+        token = nil
+        uploadLink = nil
+        uploadResponse = nil
+        jobID = nil
+        jobStatus = nil
+        downloadURL = nil
+        error = nil
+        fileURL = nil
+        previewStatus = nil
+        previewURL = nil
+    }
+}
 
 
 
