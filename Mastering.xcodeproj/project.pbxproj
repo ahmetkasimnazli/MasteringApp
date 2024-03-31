@@ -19,9 +19,9 @@
 		5F1B3BCF2B582A6300ED4DF9 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3BCE2B582A6300ED4DF9 /* ViewModel.swift */; };
 		5F1B3BD62B5832B200ED4DF9 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3BD52B5832B200ED4DF9 /* Service.swift */; };
 		5F56FC082BAF0D0800867EFA /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F56FC072BAF0D0800867EFA /* PreviewView.swift */; };
-		5FB6EF012BB31EAA003D48CE /* HowToMasterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB6EF002BB31EAA003D48CE /* HowToMasterView.swift */; };
+		5F5B2CEF2BB6D2A10071B01C /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5B2CEE2BB6D2A10071B01C /* Action.swift */; };
+		5FB6EF012BB31EAA003D48CE /* HowToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB6EF002BB31EAA003D48CE /* HowToView.swift */; };
 		5FF1741C2BB4275F00E91DB3 /* ResultAndSaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF1741B2BB4275F00E91DB3 /* ResultAndSaveView.swift */; };
-		5FF1741E2BB4298400E91DB3 /* AppPrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF1741D2BB4298400E91DB3 /* AppPrimaryButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,10 +39,10 @@
 		5F1B3BD52B5832B200ED4DF9 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		5F1B3BDA2B58640A00ED4DF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		5F56FC072BAF0D0800867EFA /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		5F5B2CEE2BB6D2A10071B01C /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		5F89DFE52BA1C6C400FD6EC6 /* Mastering.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mastering.entitlements; sourceTree = "<group>"; };
-		5FB6EF002BB31EAA003D48CE /* HowToMasterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToMasterView.swift; sourceTree = "<group>"; };
+		5FB6EF002BB31EAA003D48CE /* HowToView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToView.swift; sourceTree = "<group>"; };
 		5FF1741B2BB4275F00E91DB3 /* ResultAndSaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultAndSaveView.swift; sourceTree = "<group>"; };
-		5FF1741D2BB4298400E91DB3 /* AppPrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPrimaryButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,9 +66,8 @@
 				5F0D9DC82BAB5553004FC263 /* AudioPlayerView.swift */,
 				5F0D9DCC2BAC4A6B004FC263 /* SettingsView.swift */,
 				5F56FC072BAF0D0800867EFA /* PreviewView.swift */,
-				5FB6EF002BB31EAA003D48CE /* HowToMasterView.swift */,
+				5FB6EF002BB31EAA003D48CE /* HowToView.swift */,
 				5FF1741B2BB4275F00E91DB3 /* ResultAndSaveView.swift */,
-				5FF1741D2BB4298400E91DB3 /* AppPrimaryButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -115,6 +114,7 @@
 		5F1B3BBD2B581F4100ED4DF9 /* Mastering */ = {
 			isa = PBXGroup;
 			children = (
+				5F5B2CED2BB6D2940071B01C /* Models */,
 				5F0D9DC32BAB2B4A004FC263 /* ViewModels */,
 				5F0D9DC02BAB2B0E004FC263 /* Services */,
 				5F0D9DBD2BAB2A9B004FC263 /* Extentions */,
@@ -134,6 +134,14 @@
 				5F1B3BC52B581F4200ED4DF9 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5F5B2CED2BB6D2940071B01C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5F5B2CEE2BB6D2A10071B01C /* Action.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,7 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FB6EF012BB31EAA003D48CE /* HowToMasterView.swift in Sources */,
+				5FB6EF012BB31EAA003D48CE /* HowToView.swift in Sources */,
 				5F1B3BC12B581F4100ED4DF9 /* ContentView.swift in Sources */,
 				5F1B3BCF2B582A6300ED4DF9 /* ViewModel.swift in Sources */,
 				5F0D9DC92BAB5553004FC263 /* AudioPlayerView.swift in Sources */,
@@ -220,7 +228,7 @@
 				5F0D9DCD2BAC4A6B004FC263 /* SettingsView.swift in Sources */,
 				5F1B3BBF2B581F4100ED4DF9 /* MasteringApp.swift in Sources */,
 				5F0D9DAC2BA9A9AF004FC263 /* HomePageView.swift in Sources */,
-				5FF1741E2BB4298400E91DB3 /* AppPrimaryButton.swift in Sources */,
+				5F5B2CEF2BB6D2A10071B01C /* Action.swift in Sources */,
 				5FF1741C2BB4275F00E91DB3 /* ResultAndSaveView.swift in Sources */,
 				5F1B3BD62B5832B200ED4DF9 /* Service.swift in Sources */,
 			);
@@ -281,7 +289,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -338,7 +346,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -362,6 +370,7 @@
 				DEVELOPMENT_TEAM = 872Q79KG8T;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mastering/Info.plist;
 				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "We need to have permission to save data.";
@@ -399,6 +408,7 @@
 				DEVELOPMENT_TEAM = 872Q79KG8T;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mastering/Info.plist;
 				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "We need to have permission to save data.";

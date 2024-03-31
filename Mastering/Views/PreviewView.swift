@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PreviewView: View {
-    @ObservedObject var viewModel: DolbyIOViewModel
+    @EnvironmentObject var viewModel: DolbyIOViewModel
     @State var previewURL: URL?
     @State private var isLoading = true
     
@@ -21,7 +21,12 @@ struct PreviewView: View {
                 List {
                     if previewURL != nil {
                         AudioPlayerView(fileName: "Preview Media", url: previewURL)
+                        Text("Tip: If you are not satisfied with the preview, you can go back and try different presets.")
+                            .bold()
+                            .font(.caption)
+                            .foregroundColor(.secondary)
                     }
+                    
                 }
                 .overlay {
                     if isLoading {
@@ -43,14 +48,17 @@ struct PreviewView: View {
             
             if !isLoading {
                 NavigationLink {
-                    ResultAndSaveView(viewModel: viewModel)
+                    ResultAndSaveView()
                 }   label: {
                     Label("Get The Final Result", systemImage: "checkmark.circle.fill")
+                        .padding(10)
                 }
-                .buttonStyle(AppPrimaryButton())
+                .buttonStyle(.borderedProminent)
+                .bold()
+                .tint(.green)
                 .font(.title2)
                 .foregroundStyle(.white)
-                .padding()
+
                 
             }
         }
@@ -71,8 +79,7 @@ struct PreviewView: View {
                 
             }        })
         .onReceive(viewModel.$uploadResponse, perform: { uploadResponse in
-            if uploadResponse != nil {
-                
+            if let httpResponse = uploadResponse, httpResponse.statusCode == 200 {
                 viewModel.createMasterPreview()
                 print("createMasterPreview() çalıştı")
             }
@@ -113,5 +120,5 @@ struct PreviewView: View {
 }
 
 #Preview {
-    PreviewView(viewModel: DolbyIOViewModel())
+    PreviewView()
 }

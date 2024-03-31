@@ -9,25 +9,11 @@ import SwiftUI
 
 
 struct ContentView: View {
-    @StateObject private var viewModel = DolbyIOViewModel()
+    @EnvironmentObject var viewModel: DolbyIOViewModel
     @State private var isImporting = false
     @State var selectedFileName: String = ""
     @State var fileURL: URL?
     @State private var isSheetPresented = false
-    @State var selectedAction: String
-    
-    let times: [String] = {
-        var times: [String] = []
-        for hour in 0...25 {
-            for minute in 0..<60 {
-                let timeString = String(format: "%02d:%02d", hour, minute)
-                times.append(timeString)
-            }
-        }
-        return times
-    }()
-    
-    
     
     var body: some View {
         NavigationStack {
@@ -39,13 +25,33 @@ struct ContentView: View {
                         } label: {
                             Label("Import Media", systemImage: "square.and.arrow.down")
                                 .frame(minWidth: 400, maxWidth: .infinity,minHeight: 100, alignment: .center)
+                                .font(.title3)
+                                .bold()
                                 .padding()
+                            if viewModel.selectedAction == "master" {
+                                Text("Maximum file size: 10 min")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            if viewModel.selectedAction == "enhance" {
+                                Text("Maximum file size: N/A")
+                                    .font(.caption)
+                                    .italic()
+                                    .foregroundColor(.secondary)
+                            }
                         }
                     } else {
-                        AudioPlayerView(fileName: selectedFileName, url: fileURL)
+                        AudioPlayerView( fileName: selectedFileName, url: fileURL)
+                        if viewModel.selectedAction == "master" {
+                            Text("Tip: Put the slider to sweet spot of your track to get the best preview result.")
+                                .bold()
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
                     }
+                    
                 }
-                if selectedAction == "Master" {
+                    if viewModel.selectedAction == "master" {
                     Section("Select your preset") {
                         Picker("Select your preset", selection: $viewModel.selectedPreset) {
                             ForEach(viewModel.masterPresets.keys.sorted(), id: \.self) { key in
@@ -57,36 +63,42 @@ struct ContentView: View {
                         .labelsHidden()
                         
                     }
-                    
-                    Section("Find the sweet spot") {
-                        Picker(selection: $viewModel.selectedTime, label: Text("")) {
-                            ForEach(0..<times.count, id: \.self) { index in
-                                Text(times[index]).tag(index)
-                            }
-                        }
-                        .pickerStyle(.wheel)
-                        .labelsHidden()
-                    }
                 }
+
+            }
+            
+            
+            if viewModel.selectedAction == "master" {
+                NavigationLink {
+                    PreviewView()
+                }   label: {
+                    Label("Preview Mastered Track", systemImage: "rectangle.stack")
+                        .padding(10)
+                }
+                .disabled(selectedFileName.isEmpty)
+                .buttonStyle(.borderedProminent)
+                .bold()
+                .font(.title2)
+                .padding()
+                .navigationTitle("Mastering")
                 
             }
-            
-            
-            
-            NavigationLink {
-                PreviewView(viewModel: viewModel)
-            }   label: {
-                Label("Preview Mastered Track", systemImage: "rectangle.stack")
+            if viewModel.selectedAction == "enhance" {
+                NavigationLink {
+                    ResultAndSaveView()
+                    
+                }   label: {
+                    Label("Enhance your media", systemImage: "checkmark.circle.fill")
+                        .padding(10)
+                }
+                .buttonStyle(.borderedProminent)
+                .bold()
+                .tint(.green)
+                .disabled(selectedFileName.isEmpty)
+                .font(.title2)
+
+                
             }
-            .disabled(selectedFileName.isEmpty)
-            
-            .buttonStyle(.borderedProminent)
-            .font(.title2)
-            .foregroundStyle(.white)
-            .padding()
-            .navigationTitle("Mastering")
-            
-            
             
         }
         .toolbar {
@@ -100,9 +112,8 @@ struct ContentView: View {
         }
         .sheet(isPresented: $isSheetPresented) {
             NavigationStack {
-                HowToMasterView()
-                    .navigationTitle("How To Master Track?")
-                    .navigationBarTitleDisplayMode(.large)
+                HowToView()
+                    
                     
             }
             .presentationDetents([.medium])
@@ -117,13 +128,9 @@ struct ContentView: View {
                     // Perform operations with the file URL
                     selectedFileName = file.lastPathComponent
                     viewModel.fileURL = file.path
-                    fileURL = file
+                    self.fileURL = file
                     print("File URL: \(fileURL)")
                     viewModel.uploadMediaInput()
-                    // Show the audio player view when a file is selected
-                    
-                    
-                    file.stopAccessingSecurityScopedResource()
                 }
             } catch {
                 print("Error importing file: \(error)")
@@ -137,10 +144,10 @@ struct ContentView: View {
             viewModel.getToken()
             
         }
-        .onReceive(viewModel.$token, perform: { _ in
-            viewModel.uploadMediaInput()
-        })
         
+    
+        
+                
     }
 }
 

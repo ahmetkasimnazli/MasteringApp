@@ -9,7 +9,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct ResultAndSaveView: View {
-    @ObservedObject var viewModel: DolbyIOViewModel
+    @EnvironmentObject var viewModel: DolbyIOViewModel
     @State var downloadURL: URL?
     @State private var isLoading = true
     @State private var isExporting = false
@@ -43,10 +43,15 @@ struct ResultAndSaveView: View {
                 .navigationTitle("Result and Save")
             }
             if !isLoading {
+                NavigationLink(destination: HomePageView()) {
+                    Text("Restart")
+                }
+                
                 Button {
                     isExporting.toggle()
                 } label: {
                     Label("Export Your File", systemImage: "square.and.arrow.up")
+                        .padding(10)
                 }
                 .buttonStyle(.bordered)
                 .bold()
@@ -56,39 +61,75 @@ struct ResultAndSaveView: View {
             }
         }
         .navigationBarBackButtonHidden()
-        .onAppear() {
-            
-            viewModel.masterMedia()
-        }
         
-        .onReceive(viewModel.$jobID) { jobID in
-            if let jobID = jobID {
-                timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-                    viewModel.getJobStatus(selectedAction: "master")
+            
+        
+        .onReceive(viewModel.$uploadLink, perform: { uploadLink in
+            if uploadLink != nil {
+                
+                viewModel.uploadMedia()
+                print("uploadMedia() çalıştı")
+                
+            }        })
+        
+        .onReceive(viewModel.$uploadResponse, perform: { uploadResponse in
+            if let httpResponse = uploadResponse, httpResponse.statusCode == 200 {
+                switch viewModel.selectedAction {
+                case "master":
+                    viewModel.masterMedia()
+                case "enhance":
+                    viewModel.enhanceMedia()
+                default:
+                    break
                 }
             }
-        }
-        
-        .onReceive(viewModel.$jobStatus) { jobStatus in
-            if jobStatus == "Success" {
-                
-                timer?.invalidate()
-                timer = nil
-                viewModel.downloadMedia(selectedAction: "mastered")
-            }
-        }
-        
-        .onReceive(viewModel.$downloadURL) { url in
-
-                self.downloadURL = url
-                
             
-        }
-        .onChange(of: downloadURL) {
-            if downloadURL != nil {
-                isLoading = false
+        })
+            
+            .onReceive(viewModel.$jobID) { jobID in
+                if let jobID = jobID {
+                    timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+                        switch viewModel.selectedAction {
+                        case "master":
+                            viewModel.getJobStatus(selectedAction: "master")
+                        case "enhance":
+                            viewModel.getJobStatus(selectedAction: "enhance")
+                        default:
+                            break
+                        }
+                    }
+                }
             }
-        }
+            
+            .onReceive(viewModel.$jobStatus) { jobStatus in
+                if jobStatus == "Success" {
+                    
+                    timer?.invalidate()
+                    timer = nil
+                    switch viewModel.selectedAction {
+                    case "master":
+                        viewModel.downloadMedia(selectedAction: "master")
+                    case "enhance":
+                        viewModel.downloadMedia(selectedAction: "enhance")
+                    default:
+                        break
+                    }
+                }
+            }
+            
+            .onReceive(viewModel.$downloadURL) { url in
+                    self.downloadURL = url
+                print("Download URL: \(downloadURL)")
+                    
+                
+            }
+            .onChange(of: downloadURL) {
+                if downloadURL != nil {
+                    isLoading = false
+                }
+            }
+            
+        
         
         .fileExporter(isPresented: $isExporting, document: Doc(url: viewModel.fileURL ?? "//"), contentType: .audio, onCompletion: { result in
             
@@ -126,5 +167,5 @@ struct Doc: FileDocument {
 }
 
 #Preview {
-    ResultAndSaveView(viewModel: DolbyIOViewModel())
+    ResultAndSaveView()
 }

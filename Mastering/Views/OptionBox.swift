@@ -8,36 +8,37 @@
 import SwiftUI
 
 struct OptionBox: View {
-    let title: String
-    let description: String
-    let icon: String
-    let color: Color
+    var action: Action
     var body: some View {
-        VStack (alignment: .leading) {
-            Text(title)
-                .font(.largeTitle)
+        HStack(spacing: 20) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(action.title)
+                        .font(.title)
+                        .bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Text(action.description)
+                        .font(.body)
+                }
+                Divider()
+                .frame(maxHeight: 80)
                 .bold()
-            HStack {
-                Text(description)
-                    .font(.custom("Helvetica Neue Italic", size: 20))
-                    .frame(width: 180, height: 100, alignment: .leading)
-                    .padding(.trailing)
-                Image(systemName: icon)
+                .background(.white)
+                Image(systemName: action.icon)
                     .resizable()
-                    .frame(width: 50, height: 50)
-                    .rotationEffect(.degrees(10))
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 60, height: 60)
             }
-                
-        }
-        .frame(width: 300, height: 150)
-        .padding()
-        .background(color)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
+            .padding(30)
+            .frame(maxWidth: .infinity, minHeight: 180)
+            .foregroundColor(.white)
+            .background(.linearGradient(.init(colors: [action.color.opacity(0.5), action.color]), startPoint: .top, endPoint: .bottom))
+            .mask(RoundedRectangle(cornerRadius: 30, style: .continuous))
+            .shadow(radius: 5)
+            .padding(.horizontal)
         
     }
 }
 
 #Preview {
-    OptionBox(title: "Music Mastering", description: "Use Music Mastering API to master your tracks.", icon: "music.quarternote.3", color: .yellow)
-        .frame(width: 1000, height: 200)
+    OptionBox(action: actions[1])
 }

@@ -2,6 +2,7 @@ import SwiftUI
 import AVKit
 
 struct AudioPlayerView: View {
+    @EnvironmentObject var viewModel: DolbyIOViewModel
     var fileName: String?
     var url: URL?
     
@@ -53,6 +54,10 @@ struct AudioPlayerView: View {
         .onReceive(Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()) { _ in
             updateProgress()
         }
+        
+        .onDisappear {
+            player?.stop()
+        }
     }
     
     private func formatTime(_ time: TimeInterval) -> String {
@@ -72,8 +77,9 @@ struct AudioPlayerView: View {
     }
     
     private func updateProgress() {
-        guard let player = player else { return }
+        guard let player = player, player.isPlaying else { return }
         currentTime = player.currentTime
+        viewModel.selectedTime = Int(currentTime)
     }
 }
 

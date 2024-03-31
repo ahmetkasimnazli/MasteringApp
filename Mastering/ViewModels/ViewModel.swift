@@ -13,7 +13,8 @@ import UniformTypeIdentifiers
 class DolbyIOViewModel: ObservableObject {
     
     private let service = DolbyIOService.shared
-
+    @Published var selectedAction: String?
+    @Published var id: UUID?
     @Published var token: String?
     @Published var uploadLink: String?
     @Published var uploadResponse: HTTPURLResponse?
@@ -63,14 +64,20 @@ class DolbyIOViewModel: ObservableObject {
     }
     
     func uploadMediaInput() {
+        id = UUID()
         guard let token = self.token else {
+            self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
+            return
+        }
+        
+        guard let id = self.id else {
             self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
             return
         }
         
         Task {
             do {
-                let receivedLink = try await service.uploadMediaInput(token: token)
+                let receivedLink = try await service.uploadMediaInput(token: token, id: id)
                 self.uploadLink = receivedLink
             } catch {
                 self.error = error
@@ -108,10 +115,14 @@ class DolbyIOViewModel: ObservableObject {
                 self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
                 return
             }
+            guard let id = self.id else {
+                self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
+                return
+            }
             print(selectedTime,selectedPreset)
             Task {
                 do {
-                    let result = try await service.createMasterPreview(apiToken: token, selectedPreset: selectedPreset, selectedTime: selectedTime)
+                    let result = try await service.createMasterPreview(apiToken: token, selectedPreset: selectedPreset, selectedTime: selectedTime, id: id)
                     self.previewjobID = result
                     print("JOB ID: \(result)")
                     self.previewURL = nil
@@ -149,10 +160,14 @@ class DolbyIOViewModel: ObservableObject {
             self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
             return
         }
+        guard let id = self.id else {
+            self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
+            return
+        }
 
             Task {
                 do {
-                    let fileURL = try await service.downloadMasteredPreview(apiToken: token)
+                    let fileURL = try await service.downloadMasteredPreview(apiToken: token, selectedPreset: selectedPreset, id: id)
                     self.previewURL = fileURL
                     print("DEBUG: Preview URL: \(String(describing: previewURL))")
                     self.error = nil
@@ -170,9 +185,13 @@ class DolbyIOViewModel: ObservableObject {
             self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
             return
         }
+        guard let id = self.id else {
+            self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
+            return
+        }
         Task {
             do {
-                let result = try await service.createMasteredMedia(apiToken: token)
+                let result = try await service.createMasteredMedia(apiToken: token, selectedPreset: selectedPreset, id: id)
                 self.jobID = result
                 print("JOB ID: \(result)")
                 self.error = nil
@@ -188,9 +207,13 @@ class DolbyIOViewModel: ObservableObject {
             self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
             return
         }
+        guard let id = self.id else {
+            self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
+            return
+        }
             Task {
                 do {
-                    let result = try await service.enhanceMedia(apiToken: token)
+                    let result = try await service.enhanceMedia(apiToken: token, id: id)
                     self.jobID = result
                     print("JOB ID: \(result)")
                     self.error = nil
@@ -233,13 +256,17 @@ class DolbyIOViewModel: ObservableObject {
             self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
             return
         }
+        guard let id = self.id else {
+            self.error = NSError(domain: "TokenNotAvailable", code: 0, userInfo: nil)
+            return
+        }
 
         Task {
             do {
-                let fileURL = try await service.downloadMedia(apiToken: token, selectedAction: selectedAction)
+                let fileURL = try await service.downloadMedia(apiToken: token, selectedAction: selectedAction, id: id)
                 self.downloadURL = fileURL
                 self.fileURL = String(describing: fileURL)
-                
+                self.id = nil
                 self.error = nil
             } catch {
                 self.error = error
@@ -264,7 +291,14 @@ extension DolbyIOViewModel {
         fileURL = nil
         previewStatus = nil
         previewURL = nil
+        self.id = nil
+        print("viewModel reseted")
     }
+    
+    func selectAction(_ action: String) {
+            selectedAction = action
+            print("DEBUG: Selected Action: \(selectedAction)")
+        }
 }
 
 

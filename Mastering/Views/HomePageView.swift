@@ -8,32 +8,31 @@
 import SwiftUI
 
 struct HomePageView: View {
+    @EnvironmentObject var viewModel: DolbyIOViewModel
+    
+        
+    func handleActionTap(_ action: Action) {
+        viewModel.selectAction(action.action)
+    }
+    
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack {
-                    NavigationLink(destination: ContentView(selectedAction: "Master")) {
-                        OptionBox(title: "Music Mastering", description: "Use Music Mastering API to master your tracks.", icon: "music.quarternote.3", color: .yellow)
-                            .frame(width: 500, height: 200)
-                    }
-                    NavigationLink(destination: ContentView(selectedAction: "Enhance")) {
-                        OptionBox(title: "Enhance Media", description: "Use Enhance API to enhance your audio.", icon: "sparkles", color: .purple)
-                            .frame(width: 500, height: 200)
-                
-                    }
-                    NavigationLink(destination: ContentView(selectedAction: "Transcode")) {
-                        OptionBox(title: "Transcode Media", description: "Use Transcode API to transcode your audio.", icon: "pencil.and.list.clipboard", color: .green)
-                            .frame(width: 500, height: 200)
-                
-                    }
-                    NavigationLink(destination: ContentView(selectedAction: "Analyze")) {
-                        OptionBox(title: "Analyze Media", description: "Use Analyze API to analyze your audio.", icon: "waveform.badge.magnifyingglass", color: .red)
-                            .frame(width: 500, height: 200)
-                
+                VStack(spacing: 20) {
+                    ForEach(actions) { action in
+                        NavigationLink(destination: action.destination) {
+                            OptionBox(action: action)
+                               
+                        }
+                        .simultaneousGesture(
+                            TapGesture().onEnded {
+                                handleActionTap(action)
+                            }
+                        )
                     }
                 }
+                .padding(.vertical, 10)
             }
-            .padding(.vertical, 10)
             .buttonStyle(.plain)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -45,12 +44,15 @@ struct HomePageView: View {
                 }
             }
             .ignoresSafeArea(edges: .bottom)
-            
             .navigationBarTitle("Choose your action")
         }
-        
+        .onAppear {
+            viewModel.reset()
+            
+        }
     }
 }
+    
 
 #Preview {
     HomePageView()

@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct MasteringApp: App {
+    @StateObject private var viewModel = DolbyIOViewModel()
+    
     var body: some Scene {
         WindowGroup {
             HomePageView()
         }
+        .environmentObject(viewModel)
     }
 }

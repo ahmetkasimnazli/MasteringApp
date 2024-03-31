@@ -8,24 +8,54 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @State private var isDarkMode = false
+    @State private var isSystemSettings = true
     var body: some View {
         NavigationStack {
-            Form {
-                Section(header: Text("Account")) {
+            List {
+                Section(header: Text("Premium")) {
                     Button {
-                        print("Sign out Button tapped")
+                        print("Premium Button tapped")
                     } label: {
-                        Label("Sign Out", systemImage: "person.crop.circle.badge.xmark")
+                        Label("Master.ai PRO", systemImage: "person.crop.circle.badge.xmark")
                     }
+                    
+                    Button {
+                        print("Restore Button tapped")
+                    } label: {
+                        Label("Restore Purchases", systemImage: "arrow.triangle.2.circlepath")
+                    }
+
                 }
-                Section(header: Text("About")) {
+                Section(header: Text("Appearance")) {
                     Button {
                         print("About Button tapped")
                     } label: {
-                        Label("About", systemImage: "info.circle")
+                        Toggle("Dark Mode",systemImage: "moon.stars.fill", isOn: $isDarkMode)
+                            
+                    }
+                    Button {
+                        print("About Button tapped")
+                    } label: {
+                        Toggle("Use System Settings",systemImage: "gear", isOn: $isSystemSettings)
+                    }
+                }
+                Section(header: Text("Support")) {
+                    Button {
+                        print("About Button tapped")
+                    } label: {
+                        Label("Send Feedback", systemImage: "at")
+                            
+                    }
+                    Button {
+                        print("About Button tapped")
+                    } label: {
+                        Label("Write a Review",systemImage: "heart.fill")
+                            
                     }
                 }
             }
+            .buttonStyle(.plain)
                 .navigationTitle("Settings")
         }
     }
