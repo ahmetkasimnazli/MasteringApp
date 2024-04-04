@@ -6,4 +6,5 @@ This app provides a professional-grade music mastering service to help music mak
 
 
 ## Demo
-![Uploading GIF.gif…]()
+
+![GIF](https://github.com/ahmetkasimnazli/MasteringApp/assets/86081483/dfce2b6f-d935-48e8-9485-05fff4528feb)
