@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State private var isDarkMode = false
+    @AppStorage("isDarkMode") private var isDarkMode = false
     @State private var isSystemSettings = true
     var body: some View {
         NavigationStack {

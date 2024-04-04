@@ -18,6 +18,8 @@
 		5F1B3BCD2B58202700ED4DF9 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3BCC2B58202700ED4DF9 /* ErrorView.swift */; };
 		5F1B3BCF2B582A6300ED4DF9 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3BCE2B582A6300ED4DF9 /* ViewModel.swift */; };
 		5F1B3BD62B5832B200ED4DF9 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F1B3BD52B5832B200ED4DF9 /* Service.swift */; };
+		5F3415F32BBD8F410064498D /* API_KEY.json in Resources */ = {isa = PBXBuildFile; fileRef = 5F3415F22BBD8F410064498D /* API_KEY.json */; };
+		5F3415F52BBD8F900064498D /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3415F42BBD8F900064498D /* APIKey.swift */; };
 		5F56FC082BAF0D0800867EFA /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F56FC072BAF0D0800867EFA /* PreviewView.swift */; };
 		5F5B2CEF2BB6D2A10071B01C /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5B2CEE2BB6D2A10071B01C /* Action.swift */; };
 		5FB6EF012BB31EAA003D48CE /* HowToView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB6EF002BB31EAA003D48CE /* HowToView.swift */; };
@@ -38,6 +40,8 @@
 		5F1B3BCE2B582A6300ED4DF9 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		5F1B3BD52B5832B200ED4DF9 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		5F1B3BDA2B58640A00ED4DF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5F3415F22BBD8F410064498D /* API_KEY.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = API_KEY.json; sourceTree = "<group>"; };
+		5F3415F42BBD8F900064498D /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		5F56FC072BAF0D0800867EFA /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		5F5B2CEE2BB6D2A10071B01C /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		5F89DFE52BA1C6C400FD6EC6 /* Mastering.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mastering.entitlements; sourceTree = "<group>"; };
@@ -72,11 +76,11 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		5F0D9DBD2BAB2A9B004FC263 /* Extentions */ = {
+		5F0D9DBD2BAB2A9B004FC263 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Extentions;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		5F0D9DC02BAB2B0E004FC263 /* Services */ = {
@@ -114,10 +118,11 @@
 		5F1B3BBD2B581F4100ED4DF9 /* Mastering */ = {
 			isa = PBXGroup;
 			children = (
+				5F3415F22BBD8F410064498D /* API_KEY.json */,
 				5F5B2CED2BB6D2940071B01C /* Models */,
 				5F0D9DC32BAB2B4A004FC263 /* ViewModels */,
 				5F0D9DC02BAB2B0E004FC263 /* Services */,
-				5F0D9DBD2BAB2A9B004FC263 /* Extentions */,
+				5F0D9DBD2BAB2A9B004FC263 /* Helpers */,
 				5F0D9DAD2BAAF567004FC263 /* Views */,
 				5F89DFE52BA1C6C400FD6EC6 /* Mastering.entitlements */,
 				5F1B3BDA2B58640A00ED4DF9 /* Info.plist */,
@@ -140,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				5F5B2CEE2BB6D2A10071B01C /* Action.swift */,
+				5F3415F42BBD8F900064498D /* APIKey.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -206,6 +212,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F3415F32BBD8F410064498D /* API_KEY.json in Resources */,
 				5F1B3BC62B581F4200ED4DF9 /* Preview Assets.xcassets in Resources */,
 				5F1B3BC32B581F4200ED4DF9 /* Assets.xcassets in Resources */,
 			);
@@ -226,6 +233,7 @@
 				5F0D9DA82BA9A2B9004FC263 /* OptionBox.swift in Sources */,
 				5F1B3BCD2B58202700ED4DF9 /* ErrorView.swift in Sources */,
 				5F0D9DCD2BAC4A6B004FC263 /* SettingsView.swift in Sources */,
+				5F3415F52BBD8F900064498D /* APIKey.swift in Sources */,
 				5F1B3BBF2B581F4100ED4DF9 /* MasteringApp.swift in Sources */,
 				5F0D9DAC2BA9A9AF004FC263 /* HomePageView.swift in Sources */,
 				5F5B2CEF2BB6D2A10071B01C /* Action.swift in Sources */,

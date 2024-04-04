@@ -10,11 +10,14 @@ import SwiftUI
 @main
 struct MasteringApp: App {
     @StateObject private var viewModel = DolbyIOViewModel()
-    
+    @AppStorage("isDarkMode") private var isDarkMode = false
     var body: some Scene {
         WindowGroup {
             HomePageView()
+                .preferredColorScheme(isDarkMode ? .dark : .light)
+                
         }
+        
         .environmentObject(viewModel)
     }
 }
