@@ -98,6 +98,6 @@ iOSInjectionProject/
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
-/Users/ahmetkasimnazli/Documents/Swift Folders/Mastering/Mastering/API_KEY.json
+API_KEY.json
 
 # End of https://www.toptal.com/developers/gitignore/api/xcode,swift
