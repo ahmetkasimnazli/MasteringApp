@@ -8,7 +8,7 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-struct ResultAndSaveView: View {
+struct ResultView: View {
     @EnvironmentObject var viewModel: DolbyIOViewModel
     @State var downloadURL: URL?
     @State private var isLoading = true
@@ -16,7 +16,7 @@ struct ResultAndSaveView: View {
     @State private var timer: Timer?
     
     var body: some View {
-        NavigationStack {
+        VStack {
             ZStack {
                 List {
                     if downloadURL != nil {
@@ -43,7 +43,7 @@ struct ResultAndSaveView: View {
                 .navigationTitle("Result and Save")
             }
             if !isLoading {
-                NavigationLink(destination: HomePageView()) {
+                Button(action: { viewModel.path = [] }) {
                     Text("Restart")
                 }
                 
@@ -75,10 +75,12 @@ struct ResultAndSaveView: View {
         .onReceive(viewModel.$uploadResponse, perform: { uploadResponse in
             if let httpResponse = uploadResponse, httpResponse.statusCode == 200 {
                 switch viewModel.selectedAction {
-                case "master":
+                case .master:
                     viewModel.masterMedia()
-                case "enhance":
+                case .enhance:
                     viewModel.enhanceMedia()
+                case .transcode:
+                    viewModel.transcodeMedia()
                 default:
                     break
                 }
@@ -90,10 +92,12 @@ struct ResultAndSaveView: View {
                 if let jobID = jobID {
                     timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
                         switch viewModel.selectedAction {
-                        case "master":
+                        case .master:
                             viewModel.getJobStatus(selectedAction: "master")
-                        case "enhance":
+                        case .enhance:
                             viewModel.getJobStatus(selectedAction: "enhance")
+                        case .transcode:
+                            viewModel.getJobStatus(selectedAction: "transcode")
                         default:
                             break
                         }
@@ -107,10 +111,12 @@ struct ResultAndSaveView: View {
                     timer?.invalidate()
                     timer = nil
                     switch viewModel.selectedAction {
-                    case "master":
-                        viewModel.downloadMedia(selectedAction: "master")
-                    case "enhance":
-                        viewModel.downloadMedia(selectedAction: "enhance")
+                    case .master:
+                        viewModel.downloadMedia(selectedAction: "master", fileType: "wav")
+                    case .enhance:
+                        viewModel.downloadMedia(selectedAction: "enhance", fileType: "wav")
+                    case .transcode:
+                        viewModel.downloadMedia(selectedAction: "transcode", fileType: viewModel.selectedTranscode.rawValue)
                     default:
                         break
                     }
@@ -167,5 +173,5 @@ struct Doc: FileDocument {
 }
 
 #Preview {
-    ResultAndSaveView()
+    ResultView()
 }
