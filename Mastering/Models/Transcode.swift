@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+enum Transcode: String, CaseIterable, Identifiable {
+    case mp3 = "mp3"
+    case wav = "wav"
+    case aac = "aac"
+    case ogg = "ogg"
+    
+    var id: String { self.rawValue }
+}
+
+

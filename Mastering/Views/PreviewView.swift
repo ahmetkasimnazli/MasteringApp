@@ -16,7 +16,7 @@ struct PreviewView: View {
     @State private var timer: Timer?
     
     var body: some View {
-        NavigationStack {
+        VStack {
             ZStack {
                 List {
                     if previewURL != nil {
@@ -47,9 +47,7 @@ struct PreviewView: View {
             .navigationTitle("Preview")
             
             if !isLoading {
-                NavigationLink {
-                    ResultAndSaveView()
-                }   label: {
+                NavigationLink(value: DolbyIOViewModel.Destination.result) {
                     Label("Get The Final Result", systemImage: "checkmark.circle.fill")
                         .padding(10)
                 }
@@ -65,7 +63,7 @@ struct PreviewView: View {
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationLink(destination: HomePageView()) {
+                Button(action: { viewModel.path = [] }) {
                     Text("Restart")
                 }
             }

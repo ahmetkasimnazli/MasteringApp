@@ -11,7 +11,7 @@ struct SettingsView: View {
     @AppStorage("isDarkMode") private var isDarkMode = false
     @State private var isSystemSettings = true
     var body: some View {
-        NavigationStack {
+        VStack {
             List {
                 Section(header: Text("Premium")) {
                     Button {

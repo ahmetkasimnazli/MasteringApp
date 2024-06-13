@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+struct Analyze: Codable, Equatable {
+    let bpm: Double
+    let key: String
+    let loudness: Double
+}
+
+
+
+

@@ -8,11 +8,7 @@
 import Foundation
 
 class DolbyIOService {
-    
-    static let shared = DolbyIOService()
-    
-    private init() {}
-    
+
     func getToken() async throws -> String {
         // API anahtarını ve uygulama gizli anahtarını oku
         let (appKey, appSecret) = try readAPIKey()
@@ -303,6 +299,81 @@ class DolbyIOService {
             throw error
         }
     }
+    
+    func transcodeMedia(apiToken: String, id: UUID, selectedType: String) async throws -> String {
+        let urlString = "https://api.dolby.com/media/transcode"
+        let outputDestination = "dlb://out/example-\(id)-transcode.\(selectedType)"
+        let parameters = [
+                "inputs": [["source": "dlb://in/file-\(id).wav"]],
+                "outputs": [
+                    [
+                        "id": "my_\(selectedType)",
+                        "destination": outputDestination,
+                        "kind": "\(selectedType)"
+                    ]
+                ]
+            ]
+        
+        let headers = [
+                "Authorization": "Bearer \(apiToken)",
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            ]
+        
+        var request = createRequest(url: urlString, method: "POST", headers: headers)
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+            let (data, _) = try await URLSession.shared.data(for: request)
+            if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                    let jobId = jsonObject["job_id"] as? String {
+                    // jobId değeri başarılı bir şekilde alındı
+                    print("Başarılı: job_id = \(jobId)")
+                    return jobId
+                } else {
+                print("Error happened1")
+                throw NSError(domain: "InvalidData", code: 0, userInfo: nil)
+            }
+        } catch {
+            print("Error happened1")
+            throw error
+        }
+    }
+    
+    func analyzeMedia(apiToken: String, id: UUID) async throws -> String {
+        let urlString = "https://api.dolby.com/media/analyze/music"
+        let inputDestination = "dlb://in/file-\(id).wav"
+        let outputDestination = "dlb://out/example-\(id)-analysis.json"
+        let parameters = [
+                "input": inputDestination,
+                "output": outputDestination
+            ]
+        
+        let headers = [
+                "Authorization": "Bearer \(apiToken)",
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            ]
+        
+        var request = createRequest(url: urlString, method: "POST", headers: headers)
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: [])
+            let (data, _) = try await URLSession.shared.data(for: request)
+            if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                    let jobId = jsonObject["job_id"] as? String {
+                    // jobId değeri başarılı bir şekilde alındı
+                    print("Başarılı: job_id = \(jobId)")
+                    return jobId
+                } else {
+                print("Error happened1")
+                throw NSError(domain: "InvalidData", code: 0, userInfo: nil)
+            }
+        } catch {
+            print("Error happened1")
+            throw error
+        }
+    }
 
     func getJobStatus(apiToken: String, jobID: String, selectedAction: String) async throws -> String {
         let urlString = "https://api.dolby.com/media/\(selectedAction)?job_id=\(jobID)"
@@ -339,8 +410,8 @@ class DolbyIOService {
         }
     }
     
-    func downloadMedia(apiToken: String, selectedAction: String, id: UUID) async throws -> URL {
-        let urlString = "https://api.dolby.com/media/output?url=dlb://out/example-\(id)-\(selectedAction).wav"
+    func downloadMedia(apiToken: String, selectedAction: String, id: UUID, fileType: String) async throws -> URL {
+        let urlString = "https://api.dolby.com/media/output?url=dlb://out/example-\(id)-\(selectedAction).\(fileType)"
                                                             //  dlb://out/example-\(id)-enhance.mp3
         
         let headers = [
@@ -359,7 +430,7 @@ class DolbyIOService {
                 if httpResponse.statusCode == 200 {
                     // Dosyanın geçici olarak saklandığı bir URL oluştur
                     let tempDirectoryURL = FileManager.default.temporaryDirectory
-                    let fileURL = tempDirectoryURL.appendingPathComponent("example-\(id)-\(selectedAction).wav")
+                    let fileURL = tempDirectoryURL.appendingPathComponent("example-\(id)-\(selectedAction).\(fileType)")
                     
                     // Dosyayı geçici dizine kaydet
                     try data.write(to: fileURL)
@@ -377,6 +448,49 @@ class DolbyIOService {
         }
     }
 
+    func getAnalysisResult(apiToken: String, id: UUID) async throws -> Analyze {
+        let urlString = "https://api.dolby.com/media/output?url=dlb://out/example-\(id)-analysis.json"
+        
+        let headers = [
+            "Authorization": "Bearer \(apiToken)"
+        ]
+        
+        var request = URLRequest(url: URL(string: urlString)!)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(for: request)
+            
+            // Handle response
+            if let jsonString = String(data: data, encoding: .utf8) {
+                print("Response Data: \(jsonString)")
+            }
+            
+            guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                  let processedRegion = jsonObject["processed_region"] as? [String: Any],
+                  let audio = processedRegion["audio"] as? [String: Any],
+                  let music = audio["music"] as? [String: Any],
+                  let sections = music["sections"] as? [[String: Any]],
+                  let firstSection = sections.first,
+                  let keyArray = firstSection["key"] as? [[Any]],
+                  let keyData = keyArray.first,
+                  let key = keyData.first as? String,
+                  let confidence = keyData.last as? Double,
+                  let loudness = firstSection["loudness"] as? Double,
+                  let bpm = firstSection["bpm"] as? Double else {
+                throw NSError(domain: "InvalidData", code: 0, userInfo: nil)
+            }
+            
+            // Extracted key, confidence, loudness, and bpm
+            let info = Analyze(bpm: bpm, key: key, loudness: loudness)
+            return info
+        } catch {
+            // Handle error
+            print("Error: \(error)")
+            throw error
+        }
+    }
 
 
 

@@ -22,8 +22,6 @@ struct ResultView: View {
                     if downloadURL != nil {
                         AudioPlayerView(fileName: "Mastered Media", url: downloadURL)
                     }
-                    
-                    
                 }
                 .overlay {
                     if isLoading {
@@ -42,23 +40,23 @@ struct ResultView: View {
                 
                 .navigationTitle("Result and Save")
             }
-            if !isLoading {
-                Button(action: { viewModel.path = [] }) {
-                    Text("Restart")
+            if !isLoading{
+                    Button(action: { viewModel.path = [] }) {
+                        Text("Restart")
+                    }
+                    
+                    Button {
+                        isExporting.toggle()
+                    } label: {
+                        Label("Export Your File", systemImage: "square.and.arrow.up")
+                            .padding(10)
+                    }
+                    .buttonStyle(.bordered)
+                    .bold()
+                    .controlSize(.large)
+                    .tint(.accentColor)
+                    .padding()
                 }
-                
-                Button {
-                    isExporting.toggle()
-                } label: {
-                    Label("Export Your File", systemImage: "square.and.arrow.up")
-                        .padding(10)
-                }
-                .buttonStyle(.bordered)
-                .bold()
-                .controlSize(.large)
-                .tint(.accentColor)
-                .padding()
-            }
         }
         .navigationBarBackButtonHidden()
         
